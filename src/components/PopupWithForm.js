@@ -1,4 +1,4 @@
-//не забыть добвать noValidate, когда будет подключена собственная валидация
+//не забыть добавить noValidate, когда будет подключена собственная валидация
 function PopupWithForm(props) {
   return (
     <div className={`popup ${props.isOpen ? 'popup_opened' : ''}`} id={`popup_${props.name}`}>
