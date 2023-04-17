@@ -10,6 +10,7 @@ function Header(props) {
   const title = `${location.pathname === '/sign-in' ? 'Регистрация' : 'Войти'}`;
   const link = `${location.pathname === '/sign-in' ? '/sign-up' : '/sign-in'}`;
 
+  
   return (
     <header className="header">
       <img className="header__logo" src={logo} alt="Логотип место Россия" />
