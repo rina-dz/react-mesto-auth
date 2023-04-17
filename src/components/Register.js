@@ -1,5 +1,7 @@
 //import SignForm from "./SignForm.js";
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+
 
 function Register(props) {
 
@@ -32,7 +34,7 @@ function Register(props) {
           <input className="sign__input" type="password" name="password" placeholder="Пароль" value={formValue.password} onChange={handleChange}></input>
           <button className="sign__submit" type="submit">Зарегистрироваться</button>
         </form>
-        <a className="sign__link" href='/sign-in'>Уже зарегистрированы? Войти</a>
+        <Link className="sign__link" to='/sign-in'>Уже зарегистрированы? Войти</Link>
       </div>
     </div>
   )

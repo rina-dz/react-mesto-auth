@@ -1,33 +1,25 @@
 import React from 'react';
 import { useLocation } from "react-router";
+import { Link } from 'react-router-dom';
 import logo from '../images/logo.svg';
-
 
 function Header(props) {
 
   const location = useLocation();
-  let title;
-  let href;
 
-  if (location.pathname === '/sign-in') {
-    title = "Регистрация";
-    href = '/sign-up';
-  } else {
-    if (location.pathname === '/sign-up') {
-      title = "Вход";
-      href = '/sign-in';
-    } else {
-      title = props.email;
-      href = '#';
-    }
-  }
-
+  const title = `${location.pathname === '/sign-in' ? 'Регистрация' : 'Войти'}`;
+  const link = `${location.pathname === '/sign-in' ? '/sign-up' : '/sign-in'}`;
 
   return (
     <header className="header">
       <img className="header__logo" src={logo} alt="Логотип место Россия" />
-      <a className="header__link" href={href}>{title}</a>
-      {location.pathname !== '/sign-in' && location.pathname !== '/sign-up' && <a onClick={props.signOut} className="header__exit-link">Выйти</a>}
+      {props.loggedIn
+        ? (<>
+          <h2 className="header__link">{props.email}</h2>
+          <Link onClick={props.signOut} className="header__exit-link" to="/sign-in">Выйти</Link>
+        </>)
+        : (<Link className="header__link" to={link}>{title}</Link>)
+      }
     </header>
   )
 }

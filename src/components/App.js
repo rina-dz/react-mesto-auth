@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Route, Navigate, Routes, useNavigate } from 'react-router-dom';
 import { newApi } from '../utils/api.js';
 import { newAuthApi } from '../utils/authenticationApi.js';
@@ -70,6 +70,7 @@ function App() {
 
   function signOut() {
     localStorage.removeItem('jwt');
+    changeState(false);
     navigate('/sign-in', { replace: true });
   }
 
@@ -185,9 +186,8 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        <Header signOut={signOut} email={currentEmail} />
+        <Header signOut={signOut} email={currentEmail} loggedIn={loggedIn} />
         <Routes>
-          <Route path="/" element={loggedIn ? <Navigate  to="/main" replace /> : <Navigate  to="/sign-in" replace />} />
           <Route path="/main" element={<ProtectedRoute loggedIn={loggedIn}
             element={Main}
             cards={cards}
@@ -206,6 +206,8 @@ function App() {
           />} />
           <Route path="/sign-in" element={<Login handleSubmit={handleLogin} />} />
           <Route path="/sign-up" element={<Register handleSubmit={handleRegister} />} />
+          <Route path="/" element={loggedIn ? <Navigate to="/main" replace /> : <Navigate to="/sign-in" replace />} />
+          <Route path="*" element={<h1>NOT FOUND</h1>} />
         </Routes>
         <Footer />
         <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
