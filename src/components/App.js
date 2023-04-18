@@ -59,7 +59,7 @@ function App() {
       newAuthApi.tokenValidityCheck(jwt)
         .then((res) => {
           changeState(true);
-          setCurrentEmail(res.email);
+          setCurrentEmail(res.data.email);
           navigate('/main', { replace: true });
         })
         .catch((err) => {
@@ -134,21 +134,22 @@ function App() {
     newAuthApi.registration(info)
       .then(() => {
         setOperationSuccessful(true);
-        setInfoTooltipOpen(true);
         navigate('/sign-in', { replace: true });
       })
       .catch((err) => {
         setOperationSuccessful(false);
-        setInfoTooltipOpen(true);
         console.log(err);
+      })
+      .finally(() => {
+        setInfoTooltipOpen(true);
       })
   }
 
   function handleLogin(info) {
     newAuthApi.authorization(info.password, info.email)
       .then((data) => {
-        if (data.jwt) {
-          localStorage.setItem('jwt', data.jwt);
+        if (data.token) {
+          localStorage.setItem('jwt', data.token);
         }
         changeState(true);
         setCurrentEmail(info.email);
@@ -212,12 +213,6 @@ function App() {
         <Footer />
         <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
         <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddCard={handleAddPlaceSubmit} />
-        <div className="popup" id="popup_card-delete" buttonText={'Да'}>
-          <div className="popup__container">
-            <h2 className="popup__title">Вы уверены?</h2>
-            <button type="button" className="popup__close-icon" />
-          </div>
-        </div>
         <InfoTooltip isOpen={isInfoTooltipOpen} onClose={closeAllPopups} isOperationSuccessful={isOperationSuccessful} />
         <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar} />
         <ImagePopup card={selectedCard} isOpen={isImagePopupOpen} onClose={closeAllPopups} />

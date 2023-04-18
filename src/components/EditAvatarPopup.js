@@ -1,4 +1,5 @@
 import PopupWithForm from './PopupWithForm.js';
+import { usePopupClose } from "../hooks/usePopupClose.js";
 import React from 'react';
 
 function EditAvatarPopup(props) {
@@ -15,6 +16,8 @@ function EditAvatarPopup(props) {
             avatar: avatarRef.current.value
         });
     }
+
+    usePopupClose(props.isOpen, props.onClose);
 
     return (
         <PopupWithForm name={'avatar'} onSubmit={handleSubmit} title={'Обновить аватар'} isOpen={props.isOpen} onClose={props.onClose} buttonText={'Сохранить'}>

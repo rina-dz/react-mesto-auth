@@ -1,4 +1,8 @@
+import { usePopupClose } from "../hooks/usePopupClose.js";
+
 function InfoTooltip(props) {
+
+  usePopupClose(props.isOpen, props.onClose);
 
     const imageClassName = props.isOperationSuccessful ? 'register__icon-successful' : 'register__icon-unsuccessful';
 

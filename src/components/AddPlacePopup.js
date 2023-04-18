@@ -1,4 +1,5 @@
 import PopupWithForm from './PopupWithForm.js';
+import { usePopupClose } from "../hooks/usePopupClose.js";
 import React from 'react';
 
 function AddPlacePopup(props) {
@@ -18,6 +19,8 @@ function AddPlacePopup(props) {
             link: linkRef.current.value
         });
     }
+
+    usePopupClose(props.isOpen, props.onClose);
 
     return (
         <PopupWithForm name={'add'} onSubmit={handleSubmit} title={'Новое место'} isOpen={props.isOpen} onClose={props.onClose} buttonText={'Создать'}>

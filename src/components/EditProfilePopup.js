@@ -1,4 +1,5 @@
 import PopupWithForm from './PopupWithForm.js';
+import { usePopupClose } from "../hooks/usePopupClose.js";
 import React from 'react';
 import CurrentUserContext from '../contexts/CurrentUserContext.js';
 
@@ -26,6 +27,8 @@ function EditProfilePopup(props) {
     function handleDescriptionChange(e) {
         setNewDescription(e.target.value);
     }
+
+    usePopupClose(props.isOpen, props.onClose);
 
     return (
         <PopupWithForm name={'edit'} onSubmit={handleSubmit} title={'Редактировать профиль'} isOpen={props.isOpen} onClose={props.onClose} buttonText={'Сохранить'}>
